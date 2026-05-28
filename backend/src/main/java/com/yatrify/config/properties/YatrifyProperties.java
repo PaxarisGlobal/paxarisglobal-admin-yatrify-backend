@@ -27,18 +27,18 @@ public class YatrifyProperties {
     }
 
     /**
-     * Paxaris API Gateway + identity product-integration (app-to-app) settings.
+     * Paxaris API Gateway + product-integration (external product app-to-app) settings.
      */
     @Data
     public static class PaxarisIdentity {
-        /** e.g. http://host.docker.internal:8085 or http://127.0.0.1:8085 */
+        /** e.g. http://host.docker.internal:8085 or http://api-gateway:8085 */
         private String gatewayUrl = "http://127.0.0.1:8085";
-        private String realm = "vipultest";
-        /** Keycloak client_id for the Yatrify product */
-        private String productId = "vipultest-admin-product";
-        /** Role assigned on signup */
+        private String realm = "paxarisglobal";
+        /** Keycloak client_id for Yatrify (product-integration + end-user login) */
+        private String productId = "yatrify";
+        /** Product role assigned on signup */
         private String defaultUserRole = "user";
-        /** Role assigned when user becomes organizer (must exist in Keycloak for this product) */
+        /** Role assigned when user becomes organizer */
         private String organizerRole = "prodOrganizer";
     }
 

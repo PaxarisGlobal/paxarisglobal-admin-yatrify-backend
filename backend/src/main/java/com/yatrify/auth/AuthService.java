@@ -115,11 +115,8 @@ public class AuthService {
     }
 
     /**
-     * Assigns the configured organizer product role in Paxaris/Keycloak (product-integration API).
-     */
-    /**
      * Called when the user submits the Become Organizer form ({@code POST /organizers/register}).
-     * Assigns {@code PAXARIS_ORGANIZER_ROLE} (e.g. prodOrganizer) to that user in Keycloak via Paxaris.
+     * Assigns {@code PAXARIS_ORGANIZER_ROLE} via the same Paxo API as the Users / Assign Role tabs.
      */
     public void assignOrganizerRole(String keycloakUsername) {
         String organizerRole = properties.getPaxaris().getOrganizerRole();
@@ -129,7 +126,7 @@ public class AuthService {
                     "ORGANIZER_ROLE_NOT_CONFIGURED");
         }
         paxarisIdentityClient.assignRole(keycloakUsername, organizerRole);
-        log.info("Assigned organizer role '{}' to '{}' via Paxaris product-integration", organizerRole, keycloakUsername);
+        log.info("Assigned organizer role '{}' to '{}' via Paxaris identity API", organizerRole, keycloakUsername);
     }
 
     /**

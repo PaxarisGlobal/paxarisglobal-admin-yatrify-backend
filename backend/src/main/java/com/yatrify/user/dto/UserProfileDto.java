@@ -11,11 +11,13 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
+import java.io.Serializable;
 
 @Data
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class UserProfileDto {
+public class UserProfileDto implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     private UUID id;
     private String genericUserId;

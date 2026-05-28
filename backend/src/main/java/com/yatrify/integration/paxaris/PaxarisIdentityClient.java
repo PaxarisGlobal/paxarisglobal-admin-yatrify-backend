@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Calls Paxaris identity product-integration and login APIs (via API Gateway).
+ * Calls Paxaris external product-integration APIs (app-to-app) via API Gateway.
  */
 @Slf4j
 @Component
@@ -49,7 +49,7 @@ public class PaxarisIdentityClient {
 
         try {
             restTemplate.postForEntity(url, new HttpEntity<>(body, jsonHeaders()), Map.class);
-            log.info("Paxaris: created user '{}' in realm '{}'", username, cfg.getRealm());
+            log.info("Paxaris: created user '{}' for product '{}' in realm '{}'", username, cfg.getProductId(), cfg.getRealm());
         } catch (HttpClientErrorException.Conflict e) {
             log.info("Paxaris: user '{}' already exists in realm '{}'", username, cfg.getRealm());
         } catch (ResourceAccessException e) {
@@ -82,12 +82,12 @@ public class PaxarisIdentityClient {
     @SuppressWarnings("unchecked")
     public Map<String, Object> login(String username, String password) {
         YatrifyProperties.PaxarisIdentity cfg = properties.getPaxaris();
-        String url = gatewayBase(cfg) + "/identity/" + cfg.getRealm() + "/login";
+        String url = gatewayBase(cfg) + "/identity/" + cfg.getRealm().trim() + "/login";
 
         Map<String, String> body = Map.of(
                 "username", username,
                 "password", password,
-                "client_id", cfg.getProductId()
+                "client_id", cfg.getProductId().trim()
         );
 
         try {
@@ -112,9 +112,9 @@ public class PaxarisIdentityClient {
     private String integrationUrl(YatrifyProperties.PaxarisIdentity cfg, String suffix) {
         return gatewayBase(cfg)
                 + "/identity/product-integration/"
-                + cfg.getRealm()
+                + cfg.getRealm().trim()
                 + "/products/"
-                + cfg.getProductId()
+                + cfg.getProductId().trim()
                 + suffix;
     }
 

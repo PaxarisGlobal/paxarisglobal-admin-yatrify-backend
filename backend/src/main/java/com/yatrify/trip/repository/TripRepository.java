@@ -32,10 +32,10 @@ public interface TripRepository extends JpaRepository<Trip, UUID>, JpaSpecificat
             SELECT t FROM Trip t
             WHERE t.status = 'PUBLISHED'
             AND t.startDate >= :fromDate
-            AND (CAST(:tripType AS string) IS NULL OR t.tripType = :tripType)
-            AND (CAST(:departureCity AS string) IS NULL OR LOWER(t.departureCity) LIKE LOWER(CONCAT('%', :departureCity, '%')))
-            AND (CAST(:minPrice AS bigdecimal) IS NULL OR t.pricePerPerson >= :minPrice)
-            AND (CAST(:maxPrice AS bigdecimal) IS NULL OR t.pricePerPerson <= :maxPrice)
+            AND (:tripType IS NULL OR t.tripType = :tripType)
+            AND (:departureCity IS NULL OR :departureCity = '' OR LOWER(t.departureCity) LIKE LOWER(CONCAT('%', :departureCity, '%')))
+            AND (:minPrice IS NULL OR t.pricePerPerson >= :minPrice)
+            AND (:maxPrice IS NULL OR t.pricePerPerson <= :maxPrice)
             AND t.availableSeats >= :requiredSeats
             """)
     Page<Trip> searchTrips(

@@ -110,8 +110,8 @@ yatrify:
 
   paxaris:
     gateway-url: ${PAXARIS_GATEWAY_URL:http://127.0.0.1:8085}
-    realm: ${PAXARIS_REALM:vipultest}
-    product-id: ${PAXARIS_PRODUCT_ID:vipultest-admin-product}
+    realm: ${PAXARIS_REALM:paxarisglobal}
+    product-id: ${PAXARIS_PRODUCT_ID:yatrify}
     default-user-role: ${PAXARIS_DEFAULT_USER_ROLE:user}
     organizer-role: ${PAXARIS_ORGANIZER_ROLE:prodOrganizer}
 
