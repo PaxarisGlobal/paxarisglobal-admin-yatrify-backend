@@ -17,7 +17,7 @@ spec:
     spec:
       initContainers:
         - name: wait-for-postgres
-          image: devopspaxarisglobalrepo/paxarisglobal-admin-yatrify-backend:99a27a8c4a275a45c7253c184c991061f183a47f
+          image: postgres:16-alpine
           command:
             - sh
             - -c
@@ -26,7 +26,7 @@ spec:
         - name: dockerhub-secret
       containers:
         - name: paxarisglobal-admin-yatrify-backend
-          image: devopspaxarisglobalrepo/paxarisglobal-admin-yatrify-backend:99a27a8c4a275a45c7253c184c991061f183a47f
+          image: "devopspaxarisglobalrepo/paxarisglobal-admin-yatrify-backend:latest"
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
